@@ -3,4 +3,3 @@ Built a web application that scrapes various websites for data related to the Mi
 
 Completed the initial scraping using Jupyter Notebook, BeautifulSoup, Pandas, and Requests/Splinter. And then use MongoDB with Flask templating to create a new HTML page that displays all of the information that was scraped from the URLs above.
 
-* Link to web design: https://tanvir23khan.github.io/Web-Scraping-Challenge/.
