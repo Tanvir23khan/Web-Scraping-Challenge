@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <i class="fas fa-satellite"></i>
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Mission to Mars</title>
+  </head>
+  <body>
+    <div class="container-fluid banner" >
+      <div class= "banner-text text-center">
+        <h1>MISSION TO MARS</h1>      
+        <h2> <a href="/scrape" class="banner-btn"><strong>Scrape New Data</strong></a></h2>
+        <div class="down-arrow"><a href="#scraped-data"><i class='fas fa-angle-double-down' style='font-size:48px;color:rgba(75, 71, 71, 0.746)'></i></a></div>
+        <!-- <div class="satellite"><a href="/scrape"><img src="../static/images/satellite.jpg"></a></div> -->
+        <!-- <i> class="fas fa-satellite fa-spin fa-fw"></i> -->
+        <!-- <div class="satellite"><a href="/scrape"><i> class="fas fa-satellite"></i></a></div> -->
+      </div>
+    </div>
+    <div class="container-fluid news no-padding" id="scraped-data">
+      <div class="row no-gutter">
+        <div class="card-body">
+          <h4 class="card-title" id="font"><i class="fas fa-newspaper"></i>Latest Mars News</h4>
+          <!-- <i class="fa fa-newspaper-o"></i> -->
+          <br>
+          <h5 class="card-subtitle mb-2 " id="font">{{ mars.news_title }}</h5>
+          <p class="card-text">{{ mars.summary }}</p>
+          <a href={{ mars.news_url }} target="_blank"><strong>All News</strong> </a>
+        </div>
+      </div>
+      <div class="row no-gutter img-table">
+        <div class="col-md-6" >
+          <div class="card">
+            <div class="card-body" id="img-table">
+              <h4 class="card-title"><i class='fas fa-images' style='font-size:24px;color:black'></i>Featured Mars Image</h4>
+              <p class="card-text" id="dark-font">{{ mars.featured_image_title }}</p>
+              <img class="card-img-bottom" src="{{ mars.featured_image }}" alt="Featured Mars Image">
+              <a href={{ mars.jpl_url }} target="_blank"><strong>Check All Images</strong></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6" >
+          <div class="card">
+            <div class="card-body" id="img-table">
+              <div class="col-md-12">
+                <h4 class="card-title"><i class="far fa-sun"></i>Current Weather on Mars</h4>
+                <p class="card-text" id="dark-font">{{ mars.weather }}</p>
+              </div>
+            </div>
+            <div class="card-body" id="img-table">
+              <div class="col-md-12">
+                <div>
+                  <h4 class="card-title"><i class="fa fa-info-circle" style="font-size:24px;color: black"></i>Mars Facts</h4>
+                  <p class="card-text"id="dark-font" >{{ mars.fact_table | safe }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card-body id="image>
+      <div class="col-md-12">
+        <h3 align="center" id="font"><i class="fa fa-globe fa-spin fa-fw "></i>Mars Hemisphere</h3>
+        <div class="row">
+          {% for hem in mars.hemisphere_image_urls %}
+            <div class="col-md-3">
+              <button type="button" class="btn-custom" data-toggle="modal" data-target="#{{ hem.title.replace(' ','-') }}"><img src="{{ hem.img_url }}" class="img-thumbnail"  alt="{{hem.title}}">
+              </button>
+              <h6 class="card-text" align="center" id="font">{{ hem.title }}</h6>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% for hem in mars.hemisphere_image_urls %}
+    <div class="modal fade" id="{{ hem.title.replace(' ','-') }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{ hem.title }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" id="close-botton">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img src="{{ hem.img_url }}" class=" img-fluid"  alt="{{ hem.title }}">
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  <footer class="footer">
+    <div class="container">
+      <p class="text text-center">
+      <a href="https://github.com/Tanvir23khan" target="_blank">
+        <i class="fab fa-github fa-2x"style="font-size:24px;color: black"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/tanvir-khan-7557841a2" target="_blank">
+        <i class="fab fa-linkedin fa-2x"style="font-size:24px;color: black"></i>
+      </a>
+      <a href="mailto:tanvir23.khan@gmail.com">
+        <i class="fas fa-at fa-2x"style="font-size:24px;color: black"></i>
+
+      </a>
+      <br>
+        <small>© Copyright Tanvir Khan 2020. All Rights Reserved.</br>
+        UCSD© Data Science and Visualization Boot Camp</small>
+      </p>
+    </div>
+  </footer>
+  
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
